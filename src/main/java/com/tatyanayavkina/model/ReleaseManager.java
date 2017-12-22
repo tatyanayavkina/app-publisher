@@ -27,7 +27,7 @@ public class ReleaseManager {
      * Email
      */
     @Column
-    private String email;
+    private boolean active;
 
     public Long getId() {
         return id;
@@ -45,12 +45,12 @@ public class ReleaseManager {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override
@@ -64,12 +64,12 @@ public class ReleaseManager {
         ReleaseManager that = (ReleaseManager) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(email, that.email);
+                Objects.equals(active, that.active);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email);
+        return Objects.hash(id, name, active);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class ReleaseManager {
         return MoreObjects.toStringHelper(this)
                 .add("id", id)
                 .add("name", name)
-                .add("email", email)
+                .add("active", active)
                 .toString();
     }
 }

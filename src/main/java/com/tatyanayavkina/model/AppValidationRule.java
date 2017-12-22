@@ -7,12 +7,13 @@ import java.util.Objects;
 
 @Entity
 public class AppValidationRule {
+
     @Id
     @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
-    private String field;
+    private String path;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -26,12 +27,12 @@ public class AppValidationRule {
         this.id = id;
     }
 
-    public String getField() {
-        return field;
+    public String getPath() {
+        return path;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public ValidationType getType() {
@@ -52,20 +53,20 @@ public class AppValidationRule {
         }
         AppValidationRule that = (AppValidationRule) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(field, that.field) &&
+                Objects.equals(path, that.path) &&
                 type == that.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, field, type);
+        return Objects.hash(id, path, type);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("id", id)
-                .add("field", field)
+                .add("path", path)
                 .add("type", type)
                 .toString();
     }

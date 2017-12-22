@@ -1,4 +1,4 @@
-package com.tatyanayavkina.api.v1.exception;
+package com.tatyanayavkina.exception;
 
 public class EntityNotFoundException extends RuntimeException {
 

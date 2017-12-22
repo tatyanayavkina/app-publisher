@@ -2,7 +2,7 @@ package com.tatyanayavkina.api.v1;
 
 import com.tatyanayavkina.api.v1.dto.MakeVersionActiveRequest;
 import com.tatyanayavkina.api.v1.dto.PublishVersionRequest;
-import com.tatyanayavkina.api.v1.exception.EntityNotFoundException;
+import com.tatyanayavkina.exception.EntityNotFoundException;
 import com.tatyanayavkina.model.App;
 import com.tatyanayavkina.model.AppVersion;
 import com.tatyanayavkina.model.ReleaseManager;
