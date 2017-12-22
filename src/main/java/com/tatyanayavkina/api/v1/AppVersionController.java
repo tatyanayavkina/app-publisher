@@ -11,15 +11,18 @@ import com.tatyanayavkina.repository.AppVersionRepository;
 import com.tatyanayavkina.repository.ReleaseManagerRepository;
 import com.tatyanayavkina.internalvalidation.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Optional;
 
-@RestController("/app-version")
+@RestController
+@RequestMapping(path = "/app-version", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppVersionController {
 
     private final AppRepository appRepository;
