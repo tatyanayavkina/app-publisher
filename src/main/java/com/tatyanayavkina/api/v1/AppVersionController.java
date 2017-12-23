@@ -22,7 +22,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/app-version", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/v1/app-version", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppVersionController {
 
     private final AppRepository appRepository;

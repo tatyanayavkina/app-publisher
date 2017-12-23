@@ -1,27 +1,104 @@
-Структура бд
+# Сборка приложения
+```
+mvn clean install
+```
 
-publisher
-- id
-- name
+# Запуск приложения
+```
+java -jar app-publisher-1.0.0.jar -Dserver.port=<SERVER_PORT>
+```
+По умолчанию приложение запускается на порту 9000
 
-app
-- id
-- name
-- publisher_id
-- active_version_id
+# О приложении
+## Основные сущности
+### Издатель(Publisher)
+Поля
+* name - имя издателя
+Издатель может управлять несколькими приложениями (App).
 
-app_version
-- id
-- app_id
-- version
-- release_manager_id
+### Приложение(App)
+Поля
+* name - имя приложения
+* publisher - издатель приложения (Publisher)
+* active version - активная версия
+Приложение может иметь несколько версий, среди которых только одна может быть активная.
 
-release_manager
-- id
-- name
-- email
+### Версия приложения (AppVersion)
+Поля
+* app - приложение, которому принадлежит версия
+* version - обозначение версии приложения, например, "v534-r"
+* releaseManager - менеджер (ReleaseManager), ответственный за выпуск версии приложения
 
-app_validation_rule
-- id
-- property
-- rule
+### Менеджер (ReleaseManager)
+Поля
+* name - имя менеджера
+* active - активен/не активен
+
+### Правила валидации версии приложения (AppValidationRule)
+* property - путь к полю объекта для валидации. Например, "releaseManager.active" или "version"
+* rule - правило валидации (задается через ENUM)
+
+## Основные сценарии использования
+1. Создание издателя
+
+POST-запрос на `/rest/publisher`
+
+Тело запроса
+```
+{
+    "name": "publisher-1"
+}
+```
+
+2. Создание приложения
+
+POST-запрос на `/rest/app`
+
+Тело запроса
+
+```
+{
+    "name": "app-1",
+    "publisher": "http://localhost:9000/rest/publisher/1"
+}
+```
+Поле publisher не является обязательным.
+
+3. Создание менеджера
+
+POST-запрос на `/rest/release-manager`
+
+Тело запроса
+```
+{
+    "name": "publisher-1"
+}
+```
+
+4. Публикация версии приложения
+
+POST-запрос на `/api/v1/app-version/publish`
+
+Тело запроса
+
+```
+{
+    "appId": 1,
+    "version": "rc-15",
+    "releaseManagerId": 3
+}
+```
+
+5. Сделать версию приложения активной
+
+POST-запрос на `/api/v1/app-version/make-active`
+
+Тело запроса
+
+```
+{
+    "appVersionId": 1
+}
+```
+
+В случае успешного выполнения запросов будет возвращен ответ со статусом 200 OK.
