@@ -44,7 +44,7 @@ public class AppVersionController {
     }
 
     @PostMapping(path = "/publish")
-    @Transactional // todo: check for transaction or move logic to services
+    @Transactional
     public void publishVersion(@Valid @RequestBody PublishVersionRequest request) {
         App app = Optional.ofNullable(appRepository.findOne(request.getAppId()))
                 .orElseThrow(() -> new EntityNotFoundException("App", request.getAppId()));

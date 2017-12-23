@@ -18,7 +18,7 @@ public abstract class AbstractValidationProcessor implements ValidationProcessor
 
         checkPropertyType(property);
         if (!isValidProperty(property)) {
-            throw new ObjectNotValidException(model, propertyPath);
+            throw new ObjectNotValidException(model);
         }
     }
 

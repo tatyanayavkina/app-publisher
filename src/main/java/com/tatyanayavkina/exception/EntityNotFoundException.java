@@ -14,6 +14,6 @@ public class EntityNotFoundException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return String.format("Entity %s with id=%d not found", entity, id);
+        return String.format("%s entity with id=%d not found", entity, id);
     }
 }

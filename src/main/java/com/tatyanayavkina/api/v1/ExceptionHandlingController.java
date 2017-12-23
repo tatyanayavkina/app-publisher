@@ -18,7 +18,7 @@ public class ExceptionHandlingController {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public String handleMethodArgumentNotValidException(EntityNotFoundException e) {
+    public String handleEntityNotFoundException(EntityNotFoundException e) {
         logger.warn("{}", e.getMessage());
 
         return e.getMessage();
@@ -27,7 +27,7 @@ public class ExceptionHandlingController {
     @ExceptionHandler(ObjectNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public String handleMethodArgumentNotValidException(ObjectNotValidException e) {
+    public String handleObjectNotValidException(ObjectNotValidException e) {
         logger.warn("{}", e.getMessage());
 
         return e.getMessage();
