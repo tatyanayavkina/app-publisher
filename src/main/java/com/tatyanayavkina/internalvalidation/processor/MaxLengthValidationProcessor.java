@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MaxLengthValidationProcessor extends AbstractValidationProcessor implements ValidationProcessor {
 
-    public static int MAX_LENGTH_VALUE = 15;
+    private static int MAX_LENGTH_VALUE = 15;
 
     @Override
     public ValidationType getValidationType() {

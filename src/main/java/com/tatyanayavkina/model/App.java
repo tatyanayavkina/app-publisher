@@ -95,7 +95,7 @@ public class App {
                 .add("id", id)
                 .add("name", name)
                 .add("publisher", publisher)
-                .add("activeVersion", activeVersion)
+                .add("activeVersion", activeVersion == null ? "" : activeVersion.getVersion())
                 .toString();
     }
 }

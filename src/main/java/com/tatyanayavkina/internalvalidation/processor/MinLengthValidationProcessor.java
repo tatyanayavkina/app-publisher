@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MinLengthValidationProcessor extends AbstractValidationProcessor implements ValidationProcessor {
 
-    public static int MIN_LENGTH_VALUE = 15;
+    private static int MIN_LENGTH_VALUE = 5;
 
     @Override
     public ValidationType getValidationType() {

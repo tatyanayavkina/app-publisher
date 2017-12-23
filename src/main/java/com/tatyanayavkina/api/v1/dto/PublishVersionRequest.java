@@ -18,7 +18,7 @@ public class PublishVersionRequest {
      * Version
      */
     @NotEmpty
-    private final String version; //todo: add validator for unique
+    private final String version;
 
     /**
      * Id of release manager

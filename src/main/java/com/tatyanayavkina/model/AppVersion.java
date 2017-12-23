@@ -14,6 +14,7 @@ public class AppVersion {
     @GeneratedValue
     private Long id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "app_id", nullable = false)
     private App app;
@@ -95,9 +96,9 @@ public class AppVersion {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("id", id)
-                .add("app", app)
+                .add("app", app.getName())
                 .add("version", version)
-                .add("releaseManager", releaseManager)
+                .add("releaseManager", releaseManager.getName())
                 .toString();
     }
 }
