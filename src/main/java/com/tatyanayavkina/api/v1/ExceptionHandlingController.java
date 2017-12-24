@@ -1,5 +1,6 @@
 package com.tatyanayavkina.api.v1;
 
+import com.tatyanayavkina.api.v1.dto.ErrorResponse;
 import com.tatyanayavkina.exception.EntityNotFoundException;
 import com.tatyanayavkina.exception.ObjectNotValidException;
 import org.slf4j.Logger;
@@ -18,18 +19,18 @@ public class ExceptionHandlingController {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public String handleEntityNotFoundException(EntityNotFoundException e) {
+    public ErrorResponse handleEntityNotFoundException(EntityNotFoundException e) {
         logger.warn("{}", e.getMessage());
 
-        return e.getMessage();
+        return new ErrorResponse(e.getMessage());
     }
 
     @ExceptionHandler(ObjectNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public String handleObjectNotValidException(ObjectNotValidException e) {
+    public ErrorResponse handleObjectNotValidException(ObjectNotValidException e) {
         logger.warn("{}", e.getMessage());
 
-        return e.getMessage();
+        return new ErrorResponse(e.getMessage());
     }
 }

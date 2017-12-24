@@ -9,7 +9,9 @@ import com.tatyanayavkina.model.App;
 import com.tatyanayavkina.model.AppVersion;
 import com.tatyanayavkina.model.Publisher;
 import com.tatyanayavkina.model.ReleaseManager;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class ValidationProcessorTest {
 
@@ -20,18 +22,43 @@ public class ValidationProcessorTest {
     private final ValidationProcessor maxLengthValidationProcessor = new MaxLengthValidationProcessor();
 
     private final ValidationProcessor minLengthValidationProcessor = new MinLengthValidationProcessor();
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testPropertyPathIsWrong() {
         AppVersion model = new AppVersion(new App(), "version", null);
+
+        expectedException.expect(IllegalArgumentException.class);
+
         isTrueValidationProcessor.validate(model, PATH_TO_MANAGER_ACTIVE);
     }
 
-    @Test(expected = ObjectNotValidException.class)
+    @Test
+    public void testPropertyIsNull() {
+        AppVersion model = new AppVersion(new App(), "version", null);
+
+        expectedException.expect(ClassCastException.class);
+
+        maxLengthValidationProcessor.validate(model, "releaseManager");
+    }
+
+    @Test
+    public void testPropertyIsUnsupportedType() {
+        AppVersion model = new AppVersion(new App(), "version", null);
+
+        expectedException.expect(ClassCastException.class);
+
+        isTrueValidationProcessor.validate(model, "version");
+    }
+
+    @Test
     public void testObjectIsNotValidForIsTrueValidationProcessor() {
         ReleaseManager manager = new ReleaseManager();
         manager.setActive(false);
         AppVersion model = new AppVersion(new App(), "version", manager);
+
+        expectedException.expect(ObjectNotValidException.class);
 
         isTrueValidationProcessor.validate(model, PATH_TO_MANAGER_ACTIVE);
     }
@@ -42,13 +69,15 @@ public class ValidationProcessorTest {
         manager.setActive(true);
         AppVersion model = new AppVersion(new App(), "version", manager);
 
-        isTrueValidationProcessor.validate(model, PATH_TO_MANAGER_ACTIVE);// and no exception is thrown
+        isTrueValidationProcessor.validate(model, PATH_TO_MANAGER_ACTIVE);
     }
 
-    @Test(expected = ObjectNotValidException.class)
+    @Test
     public void testObjectIsNotValidForMinLengthValidationProcessor() {
         Publisher model = new Publisher();
         model.setName("abc");
+
+        expectedException.expect(ObjectNotValidException.class);
 
         minLengthValidationProcessor.validate(model, "name");
     }
@@ -58,13 +87,15 @@ public class ValidationProcessorTest {
         Publisher model = new Publisher();
         model.setName("Longer-Than-5");
 
-        minLengthValidationProcessor.validate(model, "name");// and no exception is thrown
+        minLengthValidationProcessor.validate(model, "name");
     }
 
-    @Test(expected = ObjectNotValidException.class)
+    @Test
     public void testObjectIsNotValidForMaxLengthValidationProcessor() {
         Publisher model = new Publisher();
         model.setName("Longer-Than-15-symbols-And-It-Is-Bad");
+
+        expectedException.expect(ObjectNotValidException.class);
 
         maxLengthValidationProcessor.validate(model, "name");
     }
@@ -74,6 +105,6 @@ public class ValidationProcessorTest {
         Publisher model = new Publisher();
         model.setName("Shorter-Than-15");
 
-        maxLengthValidationProcessor.validate(model, "name");// and no exception is thrown
+        maxLengthValidationProcessor.validate(model, "name");
     }
 }

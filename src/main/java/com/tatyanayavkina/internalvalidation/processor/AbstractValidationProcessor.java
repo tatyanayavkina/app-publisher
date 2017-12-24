@@ -4,7 +4,7 @@ import com.tatyanayavkina.exception.ObjectNotValidException;
 import org.apache.commons.beanutils.PropertyUtilsBean;
 
 public abstract class AbstractValidationProcessor implements ValidationProcessor {
-
+    // @see https://stackoverflow.com/questions/12999214/get-the-value-of-a-field-given-the-hierarchical-path
     private final static PropertyUtilsBean pub = new PropertyUtilsBean();
 
     @Override
@@ -13,7 +13,7 @@ public abstract class AbstractValidationProcessor implements ValidationProcessor
         try {
             property = pub.getProperty(model, propertyPath);
         } catch (Exception e) {
-            throw new RuntimeException("Unable to retrieve object property", e);
+            throw new IllegalArgumentException("Unable to retrieve object property", e);
         }
 
         checkPropertyType(property);
@@ -24,7 +24,7 @@ public abstract class AbstractValidationProcessor implements ValidationProcessor
 
     private void checkPropertyType(Object property) {
         if (property == null || !getSupportedType().isInstance(property)) {
-            throw new RuntimeException("Object property has unsupported type or is null");
+            throw new ClassCastException("Object property has unsupported type or is null");
         }
     }
 

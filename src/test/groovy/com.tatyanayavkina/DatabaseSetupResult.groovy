@@ -3,14 +3,14 @@ package com.tatyanayavkina
 
 class DatabaseSetupResult {
 
-    def publisherId
+    long publisherId
 
-    def appId
+    long appId
 
-    def activeReleaseManagerId;
+    long activeReleaseManagerId;
 
-    def appVersionIdWithActiveReleaseManager
+    long appVersionIdWithActiveReleaseManager
 
-    def appVersionIdWithInactiveReleaseManagerId
+    long appVersionIdWithInactiveReleaseManagerId
 
 }

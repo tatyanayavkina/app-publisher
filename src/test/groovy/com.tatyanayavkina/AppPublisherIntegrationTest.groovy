@@ -1,5 +1,6 @@
 package com.tatyanayavkina
 
+import com.tatyanayavkina.api.v1.dto.ErrorResponse
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -44,13 +45,13 @@ class AppPublisherIntegrationTest {
                 releaseManagerId: databaseSetup.result.activeReleaseManagerId
         ]
 
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity("/api/v1/app-version/publish",
+        ResponseEntity<ErrorResponse> responseEntity = restTemplate.postForEntity("/api/v1/app-version/publish",
                 request,
-                String.class)
-        String response = responseEntity.getBody()
+                ErrorResponse.class)
+        String message = responseEntity.getBody().getMessage()
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode())
-        assertTrue(response.contains("entity with id=1250 not found"))
+        assertTrue(message.contains("entity with id=1250 not found"))
     }
 
     @Test
@@ -65,13 +66,13 @@ class AppPublisherIntegrationTest {
 
     @Test
     void testMakeVersionActiveValidationError() {
-        ResponseEntity<String> responseEntity =
+        ResponseEntity<ErrorResponse> responseEntity =
                 restTemplate.postForEntity("/api/v1/app-version/make-active",
                         [appVersionId: databaseSetup.result.appVersionIdWithInactiveReleaseManagerId],
-                        String.class)
-        String response = responseEntity.getBody()
+                        ErrorResponse.class)
+        String message = responseEntity.getBody().getMessage()
 
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode())
-        assertTrue(response.contains("Model is not valid"))
+        assertTrue(message.contains("Model is not valid"))
     }
 }

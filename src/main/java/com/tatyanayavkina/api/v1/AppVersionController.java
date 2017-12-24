@@ -34,7 +34,8 @@ public class AppVersionController {
     private final ValidationService<AppVersion> validationService;
 
     @Autowired
-    public AppVersionController(AppRepository appRepository, AppVersionRepository appVersionRepository,
+    public AppVersionController(AppRepository appRepository,
+                                AppVersionRepository appVersionRepository,
                                 ReleaseManagerRepository releaseManagerRepository,
                                 ValidationService<AppVersion> validationService) {
         this.appRepository = appRepository;
