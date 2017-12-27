@@ -38,7 +38,7 @@ public class ValidationProcessorTest {
     public void testPropertyIsNull() {
         AppVersion model = new AppVersion(new App(), "version", null);
 
-        expectedException.expect(ClassCastException.class);
+        expectedException.expect(RuntimeException.class);
 
         maxLengthValidationProcessor.validate(model, "releaseManager");
     }

@@ -24,7 +24,7 @@ public class ReleaseManager {
     private String name;
 
     /**
-     * Email
+     * Is manager active
      */
     @Column
     private boolean active;

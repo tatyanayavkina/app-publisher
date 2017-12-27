@@ -16,15 +16,15 @@ public abstract class AbstractValidationProcessor implements ValidationProcessor
             throw new IllegalArgumentException("Unable to retrieve object property", e);
         }
 
-        checkPropertyType(property);
+        checkPropertyIsNotNull(property);
         if (!isValidProperty(property)) {
             throw new ObjectNotValidException(model);
         }
     }
 
-    private void checkPropertyType(Object property) {
-        if (property == null || !getSupportedType().isInstance(property)) {
-            throw new ClassCastException("Object property has unsupported type or is null");
+    private void checkPropertyIsNotNull(Object property) {
+        if (property == null) {
+            throw new RuntimeException("Object property is null");
         }
     }
 

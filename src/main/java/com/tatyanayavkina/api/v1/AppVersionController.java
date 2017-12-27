@@ -49,7 +49,7 @@ public class AppVersionController {
     public void publishVersion(@Valid @RequestBody PublishVersionRequest request) {
         App app = Optional.ofNullable(appRepository.findOne(request.getAppId()))
                 .orElseThrow(() -> new EntityNotFoundException("App", request.getAppId()));
-        ReleaseManager releaseManager = Optional.of(releaseManagerRepository.findOne(request.getReleaseManagerId()))
+        ReleaseManager releaseManager = Optional.ofNullable(releaseManagerRepository.findOne(request.getReleaseManagerId()))
                 .orElseThrow(() -> new EntityNotFoundException("ReleaseManager", request.getReleaseManagerId()));
         AppVersion appVersion = new AppVersion(app, request.getVersion(), releaseManager);
         appVersionRepository.save(appVersion);
